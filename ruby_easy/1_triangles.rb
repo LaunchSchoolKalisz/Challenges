@@ -51,14 +51,19 @@ class Triangle
   end 
 
   def validate_triangle(sides)
-    if sides.all? {|side| side > 0}
-    else
-      raise ArgumentError.new("Not a valid triangle! Check your sides, please.")
-    end
+    raise ArgumentError.new("Not a valid triangle! Each side must be greater than zero.") unless sides.all? {|side| side > 0}
+    raise ArgumentError.new("Not a valid triangle!") unless valid_triangle?(sides)
+  end
+
+  def valid_triangle?(sides)
+    return true if (sides[0] + sides[1] > sides[2]) && (sides[0] + sides[2] > sides[1]) && (sides[1] + sides[2] > sides[0])
+    false
   end
 end
 
 triangle = Triangle.new(1, 1, 1)
 p triangle 
-triangle = Triangle.new(-1, 1, 1)
-p triangle 
+triangle = Triangle.new(1, 3, 1)
+p triangle
+# triangle = Triangle.new(-1, 1, 1)
+# p triangle 

@@ -78,3 +78,62 @@ class DNA
     [strand_array, comparison_array]
   end
 end
+
+=begin
+LS Solution
+
+# Problem
+For our program, the details we need to keep in mind are as follows:
+
+We will be given two strands of DNA.
+We need to count the differences between them.
+If one strand is shorter than the other, we only need to check for differences for the length of the 
+  shorter strand.
+
+# Examples
+From the test cases shown above, we can see that we need to create a DNA class. The class should have 2 
+methods as follows:
+
+A constructor that accepts a DNA strand string as argument. The constructor does not raise any errors.
+
+A method that accepts a second DNA strand string as an argument and returns the differences between the 
+two strands — the Hamming distance.
+
+We may also want to create some helper methods to assist us, but those are optional.
+
+# Data
+We're given the DNA strands as strings. Additionally, we may want to use a collection to help us iterate 
+through each character of the DNA strand.
+
+# Algo
+constructor
+Accept a DNA strand string as an argument.
+Save it for later use.
+Method: Compute Hamming Distance (Ruby: hamming_distance; JavaScript: hammingDistance)
+
+Compare the lengths of both DNA strands to determine which is shorter.
+Set a counter to 0.
+Based on the shorter strand's length, iterate through both DNA strand strings, at the same index, and 
+compare each character.
+If the characters are different, increase the counter.
+Continue to the next index position.
+Return the counter.
+
+class DNA
+  def initialize(strand)
+    @strand = strand
+  end
+
+  def hamming_distance(comparison)
+    shorter = @strand.length < comparison.length ? @strand : comparison
+    differences = 0
+
+    shorter.length.times do |index|
+      differences += 1 unless @strand[index] == comparison[index]
+    end
+
+    differences
+  end
+end
+
+=end

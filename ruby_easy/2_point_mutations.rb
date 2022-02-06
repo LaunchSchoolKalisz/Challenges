@@ -67,6 +67,10 @@ class DNA
     comparison_array = comparison_strand.split(//)
     distance = 0
     smaller, larger = determine_smaller(strand_array, comparison_array)
+    smaller.each_with_index do |component, index|
+      distance += 1 if component != larger[index]
+    end
+    distance
   end
 
   def determine_smaller(strand_array, comparison_array)
@@ -74,12 +78,3 @@ class DNA
     [strand_array, comparison_array]
   end
 end
-
-DNA.new('GGACTGA').hamming_distance('GGACTGA') #== 0
-DNA.new('').hamming_distance('') #== 0
-
-strand = 'GGACGGATTCTGACCTGGACTAATTTTGGGG'
-distance = 'AGGACGGATTCTGACCTGGACTAATTTTGGGG'
-DNA.new(strand).hamming_distance(distance) #== 19
-
-DNA.new('AAACTAGGGG').hamming_distance('AGGCTAGCGGTAGGAC') #== 3

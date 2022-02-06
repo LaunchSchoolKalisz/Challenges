@@ -84,3 +84,91 @@ class Triangle
     false
   end
 end
+
+=begin
+LS Solution
+
+# Problem
+Important details we need to keep in mind:
+- To be a valid triangle, each side length must be greater than 0.
+- To be a valid triangle, the sum of the lengths of any two sides must be greater than the length of the 
+  remaining side.
+- An equilateral triangle has three sides of equal length.
+- An isosceles triangle has exactly two sides of the equal length.
+- A scalene triangle has three sides of unequal length (no two sides have equal length).
+
+# Examples:
+The provided test cases indicate that we need a Triangle class. We see that the class must have the 
+following two methods:
+
+a constructor that accepts three arguments representing three side lengths.
+
+an exception is raised in the constructor if any side length is <= 0.
+an exception is raised if the side lengths taken together don't describe a valid triangle
+a method kind that returns a string representing the type of the triangle.
+
+We may also want to create some helper methods to assist us, but those are optional.
+
+# Data 
+We can see from the provided test cases that we are going to be using numbers to create a new triangle 
+and to determine its validity and type. The return value is a string.
+
+What we need to think about how we might store a triangle's side lengths. It might be convenient to collect 
+the three side-lengths into an array.
+
+# Algo
+
+constructor
+Save the three side lengths
+Check whether any side length is less than or equal to zero. If so, raise an exception.
+Use comparisons to determine whether the sum of any two side lengths is less than or equal to the length of 
+the third side. If so, raise an exception.
+
+Method: kind
+Compare the values representing the three side lengths
+If all three side lengths are equal return 'equilateral'.
+If the triangle is not equilateral, but any two side lengths are equal to one another, return 'isosceles'.
+If none of the side lengths are equal to one another, return 'scalene'.
+
+# Solution
+
+class Triangle
+  attr_reader :sides
+
+  def initialize(side1, side2, side3)
+    @sides = [side1, side2, side3]
+    raise ArgumentError.new "Invalid triangle lengths" unless valid?
+  end
+
+  def kind
+    if sides.uniq.size == 1
+      'equilateral'
+    elsif sides.uniq.size == 2
+      'isosceles'
+    else
+      'scalene'
+    end
+  end
+
+  private
+
+  def valid?
+    sides.min > 0 &&
+    sides[0] + sides[1] > sides[2] &&
+    sides[1] + sides[2] > sides[0] &&
+    sides[0] + sides[2] > sides[1]
+  end
+end
+
+In our constructor, we place all of our side lengths into an array to make it simpler to pass around and for
+easy access to Array methods. After doing so, we ensure that we raise an ArgumentError unless the three 
+sides would create a valid triangle.
+
+We extract this validation into its own helper method: valid?. First, we ensure that none of the sides are 
+0 or less, and then we ensure that any two sides sum to a number greater than or equal to the remaining side.
+
+Inside kind, we take a shorter logic approach. If all sides are equal, then there will only be one unique 
+number in the sides array; thus, it's an equilateral. If two sides are equal, then there will be two 
+unique numbers in the sides array; thus it's an isosceles. In all other cases — where all three sides are 
+of differing lengths — it's a scalene triangle.
+=end

@@ -30,4 +30,111 @@ To see this in practice, consider the example of 1990. In Roman numerals, 1990 i
 
 2000=MM
 8=VIII
+
+# Problem: Create a program which takes a modern number and converts it into roman numeral
+
+# Examples
+number = RomanNumeral.new(1)
+number.to_roman == 'I'
+
+number = RomanNumeral.new(2)
+number.to_roman == 'II'
+
+number = RomanNumeral.new(3)
+number.to_roman == 'III'
+
+number = RomanNumeral.new(4)
+number.to_roman == 'IV'
+
+number = RomanNumeral.new(5)
+number.to_roman == 'V'
+
+number = RomanNumeral.new(6)
+number.to_roman == 'VI'
+
+number = RomanNumeral.new(9)
+number.to_roman == 'IX'
+
+number = RomanNumeral.new(27)
+number.to_roman == 'XXVII'
+
+number = RomanNumeral.new(48)
+number.to_roman == 'XLVIII'
+ 
+number = RomanNumeral.new(59)
+number.to_roman == 'LIX'
+
+number = RomanNumeral.new(93)
+number.to_roman == 'XCIII'
+
+number = RomanNumeral.new(141)
+number.to_roman == 'CXLI'
+
+number = RomanNumeral.new(163)
+number.to_roman == 'CLXIII'
+
+number = RomanNumeral.new(402)
+number.to_roman == 'CDII'
+
+number = RomanNumeral.new(575)
+number.to_roman == 'DLXXV'
+
+number = RomanNumeral.new(911)
+number.to_roman == 'CMXI'
+
+number = RomanNumeral.new(1024)
+number.to_roman == 'MXXIV'
+
+number = RomanNumeral.new(3000)
+number.to_roman == 'MMM'
+
+Data: string, hash?
+
+Algo
+- Create a Roman numeral class, accepts an integer in constructor method
+  - No error raising required
+  
+- to_roman method
+  - Create a hash with base numerals and their values
+  - Create an empty string to build
+  - Split the number into an array of components 
+    - Match with hash and add to empty string
+
 =end
+
+class RomanNumeral
+  attr_accessor :number
+
+  CONVERSION = {    
+                "M" => 1000,
+                "CM" => 900,
+                "D" => 500,
+                "CD" => 400,
+                "C" => 100,
+                "XC" => 90,
+                "L" => 50,
+                "XL" => 40,
+                "X" => 10,
+                "IX" => 9,
+                "V" => 5,
+                "IV" => 4,
+                "I" => 1
+              }
+
+  def initialize(number)
+    @number = number
+  end
+
+  def to_roman
+    working_num = number
+    roman_numeral = ""
+    CONVERSION.each do |roman_num, value|
+      loop do
+        break if working_num < value
+        roman_numeral << roman_num.to_s
+        working_num -= value
+      end
+    end
+    roman_numeral
+  end
+end

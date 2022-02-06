@@ -24,4 +24,33 @@ The Hamming distance between these two DNA strands is 7.
 
 The Hamming distance is only defined for sequences of equal length. If you have two sequences of unequal 
 length, you should compute the Hamming distance over the shorter length.
+
+# Problem: 
+- Create a program which calculates Hamming Distance
+
+# Examples:
+DNA.new('GGACTGA').hamming_distance('GGACTGA') == 0
+DNA.new('').hamming_distance('') == 0
+
+strand = 'GGACGGATTCTGACCTGGACTAATTTTGGGG'
+distance = 'AGGACGGATTCTGACCTGGACTAATTTTGGGG'
+DNA.new(strand).hamming_distance(distance) == 19
+
+DNA.new('AAACTAGGGG').hamming_distance('AGGCTAGCGGTAGGAC') == 3
+
+# Data:
+String, array to split the string and compare indices
+
+# Algo
+DNA Class: constructor
+- Create a DNA class that accepts 1 argument (string)
+- Split the string into an array
+
+Hamming Distance 
+- Accepts 1 argument, comparison string
+- Splits into array
+- Distance tracker, starts at 0
+- Iterate through smaller array (DNA vs comparison)
+  - Compare with other array at the same index
+  - If they are different, increase the distance tracker by 1
 =end

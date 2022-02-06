@@ -84,11 +84,3 @@ class Triangle
     false
   end
 end
-
-triangle = Triangle.new(1, 1, 1)
-p triangle.kind
-
-triangle = Triangle.new(1, 3, 1)
-p triangle
-# triangle = Triangle.new(-1, 1, 1)
-# p triangle 

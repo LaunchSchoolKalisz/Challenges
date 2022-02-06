@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative 'anagram'
+require_relative '4_anagram'
 
 class AnagramTest < Minitest::Test
   def test_no_matches

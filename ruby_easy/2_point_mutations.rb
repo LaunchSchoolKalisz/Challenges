@@ -54,3 +54,32 @@ Hamming Distance
   - Compare with other array at the same index
   - If they are different, increase the distance tracker by 1
 =end
+
+class DNA
+  attr_accessor :strand_array
+
+  def initialize(strand)
+    @strand = strand
+    @strand_array = strand.split(//)
+  end
+
+  def hamming_distance(comparison_strand)
+    comparison_array = comparison_strand.split(//)
+    distance = 0
+    smaller, larger = determine_smaller(strand_array, comparison_array)
+  end
+
+  def determine_smaller(strand_array, comparison_array)
+    return [comparison_array, strand_array] if comparison_array.size < strand_array.size
+    [strand_array, comparison_array]
+  end
+end
+
+DNA.new('GGACTGA').hamming_distance('GGACTGA') #== 0
+DNA.new('').hamming_distance('') #== 0
+
+strand = 'GGACGGATTCTGACCTGGACTAATTTTGGGG'
+distance = 'AGGACGGATTCTGACCTGGACTAATTTTGGGG'
+DNA.new(strand).hamming_distance(distance) #== 19
+
+DNA.new('AAACTAGGGG').hamming_distance('AGGCTAGCGGTAGGAC') #== 3

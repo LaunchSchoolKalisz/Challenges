@@ -40,7 +40,7 @@ Part 3: Kind
 =end
 
 class Triangle
-  attr_accessor :side1, :side2, :side3
+  attr_accessor :side1, :side2, :side3, :sides
 
   def initialize(side1, side2, side3)
     @side1 = side1
@@ -59,10 +59,35 @@ class Triangle
     return true if (sides[0] + sides[1] > sides[2]) && (sides[0] + sides[2] > sides[1]) && (sides[1] + sides[2] > sides[0])
     false
   end
+
+  def kind
+    kind = nil
+    if equilateral?
+      kind = 'equilateral'
+    elsif isosceles?
+      kind = 'isosceles'
+    else
+      kind = 'scalene'
+    end
+    kind
+  end
+
+  def equilateral?
+    return true if sides.all? {|side| side == side1}
+    false
+  end
+
+  def isosceles?
+    return true if side1 == side2 && side1 != side3
+    return true if side1 == side3 && side1 != side2
+    return true if side2 == side3 && side2 != side1
+    false
+  end
 end
 
 triangle = Triangle.new(1, 1, 1)
-p triangle 
+p triangle.kind
+
 triangle = Triangle.new(1, 3, 1)
 p triangle
 # triangle = Triangle.new(-1, 1, 1)

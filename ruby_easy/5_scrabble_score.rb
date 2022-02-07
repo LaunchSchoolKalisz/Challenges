@@ -101,6 +101,7 @@ class Scrabble
   def score
     results = 0
     word.chars.each do |letter|
+      next if letter.empty? || SCORES[letter] == nil
       letter = letter.upcase
       results += SCORES[letter]
     end

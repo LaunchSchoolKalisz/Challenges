@@ -100,6 +100,7 @@ class Scrabble
 
   def score
     results = 0
+    return results if word == nil
     word.chars.each do |letter|
       letter = letter.upcase
       next if SCORES[letter] == nil

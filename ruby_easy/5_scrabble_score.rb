@@ -101,10 +101,14 @@ class Scrabble
   def score
     results = 0
     word.chars.each do |letter|
-      next if letter.empty? || SCORES[letter] == nil
       letter = letter.upcase
+      next if SCORES[letter] == nil
       results += SCORES[letter]
     end
     results
+  end
+
+  def self.score(string)
+    Scrabble.new(string).score
   end
 end

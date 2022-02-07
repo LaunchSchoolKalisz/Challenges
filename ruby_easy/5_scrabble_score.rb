@@ -115,6 +115,8 @@ class Scrabble
 end
 
 =begin
+LS Solution
+
 # Problem
 For our program, the details we need to keep in mind are as follows:
 

@@ -122,6 +122,7 @@ For our program, the details we need to keep in mind are as follows:
 
 Our input will be a word for which we need to calculate the Scrabble score.
 The numeric value for letters is already determined for us:
+
 A, E, I, O, U, L, N, R, S, T — 1 point
 D, G — 2 points
 B, C, M, P. — 3 points

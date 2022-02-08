@@ -19,4 +19,51 @@ Examples:
     and 1 + 2 + 3 + 4 + 6 + 8 + 12 = 36 which is greater than 24.
 Prime numbers 7, 13, etc. are always deficient since their only divisor is 1.
 Write a program that can tell whether a number is perfect, abundant, or deficient.
+
+# Problem
+Write a program that takes a number and tells you if it is perfect, deficit, or abundant
+
+# Exampes
+PerfectNumber.classify(13) == 'deficient'
+PerfectNumber.classify(28) == 'perfect'
+PerfectNumber.classify(12) == 'abundant'
+
+# Data: integers, array, string
+
+# Algo
+Constructor method
+- Accepts an integer
+- Calls aloquot_sum
+
+Aloquot sum
+- Initiates a sum variable = 0
+- From 1 up to the number, check to see if the number can be divided evently
+  - If so, add to the sum
+- Return the sum
+
+Classify
+- Determines if aloquot sum is <=> the number given. Returns appropriate string
 =end
+
+class PerfectNumber
+  def self.aloquot_sum(num)
+    sum = 0
+    1.upto(num - 1) do |check|
+      sum += check if num % check == 0
+    end
+    sum
+  end
+
+  def self.classify(num)
+    sum = aloquot_sum(num)
+    determination = 'string'
+    if num == sum
+      determination = 'perfect'
+    elsif num < sum
+      determination = 'abundant'
+    elsif num > sum
+      determination = 'deficient'
+    end
+    determination
+  end
+end

@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative '6_perfect_numbers'
+require_relative '6_perfect_number'
 
 class PerfectNumberTest < Minitest::Test
   def test_initialize_perfect_number
@@ -9,17 +9,17 @@ class PerfectNumberTest < Minitest::Test
   end
 
   def test_classify_deficient
-    skip
+    # skip
     assert_equal 'deficient', PerfectNumber.classify(13)
   end
 
   def test_classify_perfect
-    skip
+    # skip
     assert_equal 'perfect', PerfectNumber.classify(28)
   end
 
   def test_classify_abundant
-    skip
+    # skip
     assert_equal 'abundant', PerfectNumber.classify(12)
   end
 end

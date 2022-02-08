@@ -47,6 +47,7 @@ Classify
 
 class PerfectNumber
   def self.aloquot_sum(num)
+    verify(num)
     sum = 0
     1.upto(num - 1) do |check|
       sum += check if num % check == 0
@@ -65,5 +66,9 @@ class PerfectNumber
       determination = 'deficient'
     end
     determination
+  end
+
+  def self.verify(num)
+    raise StandardError.new("Not a valid number.") unless num > 0
   end
 end

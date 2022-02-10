@@ -58,6 +58,3 @@ class SumOfMultiples
     SumOfMultiples.new.to(integer)
   end
 end
-
-p SumOfMultiples.new().to(20) #== 78
-p SumOfMultiples.to(20) == 78

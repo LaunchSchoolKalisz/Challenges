@@ -76,3 +76,49 @@ p Octal.new('10').to_decimal
 p Octal.new('17').to_decimal
 p Octal.new('11').to_decimal
 p Octal.new('carrot').to_decimal
+
+=begin
+LS Solution
+# Problem
+For our program, the details we need to keep in mind are as follows:
+
+The way to convert octal numbers to decimal numbers is to use base-8 in multiplication.
+Going from right-to-left, we multiply each digit of the number by 8 raised to a certain power.
+For the first digit (from the right), the power is 0. For the second digit, the power is 1. This continues 
+until we multiply each digit from the number.
+Valid octal numbers only include digits 0 through 7.
+
+# Examples
+From the test cases shown above, we can see that we need to create an Octal class. The class should have 
+2 methods as follows:
+
+a constructor that accepts a string as an argument that represents an octal number.
+a method that converts the argument into decimal and returns it as a number.
+We should return 0 if the argument has invalid characters such as letters or the digits 8 or 9.
+We may also want to create some helper methods to assist us, but those are optional.
+
+# Data 
+From the test cases, we can see that we're dealing with numbers and strings. We may want to use a 
+collection (such as an array) for helpful built-in methods.
+
+# Hints
+The method that performs the conversion to decimal is also responsible for validating the input.
+The method should iterate through the number's digits from right-to-left and compute each digit as a 
+power of base 8.
+
+# Algo
+constructor
+
+Accepts a string as an argument that represents an octal number.
+Method: convert to decimal (Ruby: to_decimal; JavaScript: toDecimal)
+
+If any character of the string being converted is not 0, 1, 2, 3, 4, 5, 6, or 7, return 0.
+Set a starting sum to 0.
+Reverse the digits.
+Iterate over digits one-by-one.
+For the first digit, multiply it by 8**0, then add it to sum.
+For the second digit, multiply it by 8**1, then add it to sum.
+Keep multiplying and adding to sum until all digits are processed.
+Return the sum.
+
+=end

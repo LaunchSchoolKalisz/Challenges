@@ -34,7 +34,7 @@ verse
 =end
 
 class BeerSong
-  def verse(verse_number)
+  def self.verse(verse_number)
     case verse_number
     when 0 
       "No more bottles of beer on the wall, no more bottles of beer.\n" \
@@ -49,14 +49,13 @@ class BeerSong
       "#{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.\n" \
       "Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.\n"
     end
-
   end
 
-  def verses(*verse_numbers)
+  def self.verses(*verse_numbers)
     verse_numbers.each {|num| verse(num)}
   end
 
-  def lyrics
+  def self.lyrics
     (0..99).to_a.reverse.each {|num| verse(num)}
   end
 end

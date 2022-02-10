@@ -66,7 +66,8 @@ class Octal
   end
 
   def validate(num, ary_of_nums)
-    return true if ary_of_nums.join == num
+    return false if ary_of_nums[-1] == 8 || ary_of_nums[-1] == 9
+    return true if ary_of_nums.join == num 
     false 
   end
 end

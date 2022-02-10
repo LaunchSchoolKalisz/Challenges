@@ -54,7 +54,7 @@ class Octal
   end
 
   def to_decimal
-    #return 0 unless validate(num, ary_of_nums)
+    return 0 unless validate(num, ary_of_nums)
     ary_to_add = ary_of_nums.reverse
     sum = 0
     counter = 0
@@ -66,7 +66,7 @@ class Octal
   end
 
   def validate(num, ary_of_nums)
-    true if ary_of_nums.join == num
+    return true if ary_of_nums.join == num
     false 
   end
 end
@@ -74,3 +74,4 @@ end
 p Octal.new('10').to_decimal
 p Octal.new('17').to_decimal
 p Octal.new('11').to_decimal
+p Octal.new('carrot').to_decimal

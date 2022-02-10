@@ -45,16 +45,17 @@ class SumOfMultiples
   end
 
   def to(integer)
-    multiples = []
+    multiples = [0]
     set.each do |set_num|
       1.upto(integer - 1) do |num|
         multiples << num if num % set_num == 0
       end
     end
-    multiples.uniq!.sum
+    multiples = multiples.uniq
+    multiples.sum
   end
 
   def self.to(integer)
-    SumOfMultiples.new.to(integer)
+    SumOfMultiples.new.to(integer) #== 51
   end
 end

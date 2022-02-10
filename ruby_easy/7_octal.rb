@@ -44,3 +44,33 @@ Thus:
 = 128   + 24    + 3
 = 155
 =end
+
+class Octal
+  attr_accessor :ary_of_nums, :num
+
+  def initialize(string)
+    @num = string
+    @ary_of_nums = num.chars.map(&:to_i)
+  end
+
+  def to_decimal
+    #return 0 unless validate(num, ary_of_nums)
+    ary_to_add = ary_of_nums.reverse
+    sum = 0
+    counter = 0
+    ary_to_add.each do |number|
+      sum += (number * (8**counter))
+      counter += 1
+    end
+    sum
+  end
+
+  def validate(num, ary_of_nums)
+    true if ary_of_nums.join == num
+    false 
+  end
+end
+
+p Octal.new('10').to_decimal
+p Octal.new('17').to_decimal
+p Octal.new('11').to_decimal

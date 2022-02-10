@@ -72,11 +72,6 @@ class Octal
   end
 end
 
-p Octal.new('10').to_decimal
-p Octal.new('17').to_decimal
-p Octal.new('11').to_decimal
-p Octal.new('carrot').to_decimal
-
 =begin
 LS Solution
 # Problem

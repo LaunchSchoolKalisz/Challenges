@@ -25,9 +25,42 @@ constructor
 lyrics
  - output each verse from 99 to 0
 
+verses
+
 verse
  - accept a parameter
  - outputs the lyrics with the correct countdown
- - special for 0 and 1
+
 =end
 
+class BeerSong
+  def verse(verse_number)
+    case verse_number
+    when 0 
+      "No more bottles of beer on the wall, no more bottles of beer.\n" \
+      "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+    when 1
+      "1 bottle of beer on the wall, 1 bottle of beer.\n" \
+      "Take it down and pass it around, no more bottles of beer on the wall.\n"
+    when 2
+      "2 bottles of beer on the wall, 2 bottles of beer.\n" \
+      "Take one down and pass it around, 1 bottle of beer on the wall.\n"
+    else
+      "#{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.\n" \
+      "Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.\n"
+    end
+
+  end
+
+  def verses(*verse_numbers)
+    verse_numbers.each {|num| verse(num)}
+  end
+
+  def lyrics
+    (0..99).to_a.reverse.each {|num| verse(num)}
+  end
+end
+
+# song = BeerSong.new
+# puts song.verse(0)
+# puts song.verse(1)

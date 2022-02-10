@@ -37,43 +37,29 @@ class BeerSong
   def self.verse(verse_number)
     case verse_number
     when 0 
-      lyrics = <<~SONG
-      No more bottles of beer on the wall, no more bottles of beer
-      Go to the store and buy some more, 99 bottles of beer on the wall.
-      SONG
+      lyrics = "No more bottles of beer on the wall, no more bottles of beer.\n" +
+      "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
     when 1
-      lyrics = <<~SONG
-      1 bottle of beer on the wall, 1 bottle of beer.
-      Take it down and pass it around, no more bottles of beer on the wall.
-      SONG
+      lyrics = "1 bottle of beer on the wall, 1 bottle of beer.\n" +
+      "Take it down and pass it around, no more bottles of beer on the wall.\n"
     when 2
-      lyrics = <<~SONG
-      2 bottles of beer on the wall, 2 bottles of beer.
-      Take one down and pass it around, 1 bottle of beer on the wall.
-      SONG
+      lyrics = "2 bottles of beer on the wall, 2 bottles of beer.\n" +
+      "Take one down and pass it around, 1 bottle of beer on the wall.\n"
     else
-      lyrics = <<~SONG
-      #{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.
-      Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.
-      SONG
+      lyrics = "#{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.\n" +
+      "Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.\n"
     end
     lyrics
   end
 
-  def self.verses(*verse_numbers)
-    string = ''
-    verse_numbers = ((verse_numbers.min)..(verse_numbers.max)).to_a.reverse
-    verse_numbers.each {|num| string << BeerSong.verse(num)}
-    string
+  def self.verses(verse_max, verse_min)
+    result = []
+    (verse_min..verse_max).to_a.reverse.each {|num| result << verse(num)}
+    result.join("\n")
   end
 
   def self.lyrics
-    string = ''
-    (0..99).to_a.reverse.each {|num| string << BeerSong.verse(num)}
-    string
+    verses(99, 0)
   end
 end
 
-p BeerSong.verse(99)
-p BeerSong.verses(99, 98)
-p BeerSong.lyrics

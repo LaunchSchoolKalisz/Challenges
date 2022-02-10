@@ -37,29 +37,43 @@ class BeerSong
   def self.verse(verse_number)
     case verse_number
     when 0 
-      "No more bottles of beer on the wall, no more bottles of beer.\n" \
-      "Go to the store and buy some more, 99 bottles of beer on the wall.\n"
+      lyrics = <<~SONG
+      No more bottles of beer on the wall, no more bottles of beer
+      Go to the store and buy some more, 99 bottles of beer on the wall.
+      SONG
     when 1
-      "1 bottle of beer on the wall, 1 bottle of beer.\n" \
-      "Take it down and pass it around, no more bottles of beer on the wall.\n"
+      lyrics = <<~SONG
+      1 bottle of beer on the wall, 1 bottle of beer.
+      Take it down and pass it around, no more bottles of beer on the wall.
+      SONG
     when 2
-      "2 bottles of beer on the wall, 2 bottles of beer.\n" \
-      "Take one down and pass it around, 1 bottle of beer on the wall.\n"
+      lyrics = <<~SONG
+      2 bottles of beer on the wall, 2 bottles of beer.
+      Take one down and pass it around, 1 bottle of beer on the wall.
+      SONG
     else
-      "#{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.\n" \
-      "Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.\n"
+      lyrics = <<~SONG
+      #{verse_number} bottles of beer on the wall, #{verse_number} bottles of beer.
+      Take one down and pass it around, #{verse_number - 1 } bottles of beer on the wall.
+      SONG
     end
+    lyrics
   end
 
   def self.verses(*verse_numbers)
-    verse_numbers.each {|num| verse(num)}
+    string = ''
+    verse_numbers = ((verse_numbers.min)..(verse_numbers.max)).to_a.reverse
+    verse_numbers.each {|num| string << BeerSong.verse(num)}
+    string
   end
 
   def self.lyrics
-    (0..99).to_a.reverse.each {|num| verse(num)}
+    string = ''
+    (0..99).to_a.reverse.each {|num| string << BeerSong.verse(num)}
+    string
   end
 end
 
-# song = BeerSong.new
-# puts song.verse(0)
-# puts song.verse(1)
+p BeerSong.verse(99)
+p BeerSong.verses(99, 98)
+p BeerSong.lyrics

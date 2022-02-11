@@ -65,13 +65,5 @@ class Series
   end
 end
 
-series = Series.new('37103')
-p series.slices(2) #== [[3, 7], [7, 1], [1, 0], [0, 3]]
-
-series = Series.new('01234')
-p series.slices(3) #== [[0, 1, 2], [1, 2, 3], [2, 3, 4]]
-
-series = Series.new('31001')
-p series.slices(3) #== [[3, 1, 0], [1, 0, 0], [0, 0, 1]]
 
 

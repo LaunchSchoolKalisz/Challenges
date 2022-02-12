@@ -80,9 +80,9 @@ class Diamond
       end
       number_of_end_spaces -= 1
     end
-    bottom_half = diamond.chomp.reverse[number_of_middle_spaces..-1]
-    diamond.chomp + bottom_half
+    bottom_half = diamond.chomp.reverse[number_of_middle_spaces..-1] + "\n"
+    diamond = diamond.chomp + bottom_half
+    diamond
   end
 end
 
-puts Diamond.make_diamond("E")

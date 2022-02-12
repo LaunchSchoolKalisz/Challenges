@@ -159,4 +159,64 @@ If the letter is 'A', return 1
 Otherwise, determine number of spaces between letters and add 2 for the letters at either end.
 Additional helpers may be needed.
 
+# Code
+
+class Diamond
+  def self.make_diamond(letter)
+    range = ('A'..letter).to_a + ('A'...letter).to_a.reverse
+    diamond_width = max_width(letter)
+
+    range.each_with_object([]) do |let, arr|
+      arr << make_row(let).center(diamond_width)
+    end.join("\n") + "\n"
+  end
+
+  private
+
+  def self.make_row(letter)
+    return "A" if letter == 'A'
+    return "B B" if letter == 'B'
+
+    letter + determine_spaces(letter) + letter
+  end
+
+  def self.determine_spaces(letter)
+    all_letters = ['B']
+    spaces = 1
+
+    until all_letters.include?(letter)
+      current_letter = all_letters.last
+      all_letters << current_letter.next
+      spaces += 2
+    end
+
+    ' ' * spaces
+  end
+
+  def self.max_width(letter)
+    return 1 if letter == 'A'
+
+    determine_spaces(letter).count(' ') + 2
+  end
+end
+
+In make_diamond, we first create the range of letters we will be using: A up to the max letter, then 
+descending. Note that we don't repeat the max letter. We then determine the width of our diamond by using 
+the max_width method.
+
+We then iterate over the range of letters, and use our helper method make_row and the built-in 
+String#center to create our rows appropriately. We then join all rows with a new line and add a newline 
+at the very end of the string.
+
+In max_width, we use a guard clause for A. Otherwise, we count the amount of spaces returned by 
+determine_spaces which uses the max letter to calculate our max length of a row. We add 2 to this number 
+to account for the 2 letters on all rows (except for an A row).
+
+In make_row, we use guard clauses to return the rows for A and B. After that, we simply return the letter 
+repeated twice with the appropriate amount of whitespace between them. We delegate the whitespace 
+calculation to determine_spaces.
+
+In determine_spaces, we begin with the letter C and the amount of spaces it needs: 3. We continue to add 
+the next letter in the alphabet to this collection of letters, and also incrementing the amount of spaces 
+by 2, until we have reached the letter we need. We then return the appropriate amount of spaces.
 =end

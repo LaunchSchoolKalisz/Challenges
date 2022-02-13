@@ -39,6 +39,7 @@ name_picker
 
 class Robot
   attr_accessor :name
+  @@names = []
 
   def initialize
     @name = name_picker
@@ -51,15 +52,25 @@ class Robot
 
     2.times {new_name << alpha.sample}
     3.times {new_name << nums.sample}
-    new_name.join
+    new_name = new_name.join
+    validate_original_name(new_name)
+    new_name
+  end
+
+  def validate_original_name(new_name)
+    if @@names.include?(new_name)
+      name_picker
+    else
+      @@names << name
+    end
   end
 
   def reset
-    old_name = name
-    loop do
-      self.name = name_picker
-      break if old_name != name
-    end
+    self.name = name_picker
   end
 end
 
+# robot = Robot.new
+# p robot.name
+# robot.reset
+# p robot.name

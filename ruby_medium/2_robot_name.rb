@@ -155,5 +155,23 @@ class Robot
     name
   end
 end
+
+Discussion
+The Robot class has a class variable names, which is an array that holds all of the currently taken names 
+for instances of the Robot class.
+
+The name method simply returns the robots name if one has already been assigned. Otherwise, the helper 
+method generate_name is repeatedly invoked until a unique name (one that is not present in the names array) 
+has been assigned. The newly generated unique name is added to the static names array and then returned 
+from the method.
+
+Our generate_name method concatenates two random alphabetic characters and three random digits onto the 
+name string and returns the resulting name. We use rand to find a random character in the ranges we provide. 
+For the letters, we use their corresponding ASCII codes to choose a random number, then convert that number 
+to a letter using chr.
+
+The reset method uses the built-in Array#delete method to delete the instance of the current name from our 
+list of used names. We do this so that the name is free to be used by instances of Robot created in the 
+future. We then reset the current robot's name to nil.
 =end
 

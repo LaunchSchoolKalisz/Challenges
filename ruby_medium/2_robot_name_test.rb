@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative 'robot_name'
+require_relative '2_robot_name'
 
 class RobotTest < Minitest::Test
   DIFFERENT_ROBOT_NAME_SEED = 1234

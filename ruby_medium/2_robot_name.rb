@@ -10,4 +10,56 @@ wiped. The next time you ask, it will respond with a new random name.
 
 The names must be random; they should not follow a predictable sequence. Random names means there is a 
 risk of collisions. Your solution should not allow the use of the same name twice when avoidable.
+
+# Problem
+Write a program that generates a random "robot name"
+
+# Example
+Robot.new.name == random name
+robot.reset == different random name
+
+# Data
+- string
+
+# Algo
+constants: 0-9, A-Z
+
+constructor
+- assign a robot name
+- current_name
+- getter/setter for name
+
+reset
+- reassigns name
+- checks it is not the same as the previous before assigning
+
+name_picker
+- generates random name from number/letter constants
 =end
+
+class Robot
+  attr_accessor :name
+
+  def initialize
+    @name = name_picker
+  end
+
+  def name_picker
+    alpha = ("A".."Z").to_a
+    nums = (0..9).to_a
+    new_name = []
+
+    2.times {new_name << alpha.sample}
+    3.times {new_name << nums.sample}
+    new_name.join
+  end
+
+  def reset
+    old_name = name
+    loop do
+      self.name = name_picker
+      break if old_name != name
+    end
+  end
+end
+

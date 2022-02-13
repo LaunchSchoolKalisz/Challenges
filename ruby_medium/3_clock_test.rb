@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative 'clock'
+require_relative '3_clock'
 
 class ClockTest < Minitest::Test
   def test_on_the_hour

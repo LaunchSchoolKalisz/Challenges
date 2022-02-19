@@ -63,8 +63,17 @@ class Clock
     end
   end
 
-  def +
-    p adtl_minutes
+  def +(adtl_minutes)
+    p minutes
+    self.minutes = minutes.to_i + adtl_minutes
+    loop do
+      break if minutes < 60
+      self.hour = hour.to_i + 1
+      self.minutes -= 60
+    end
+    p hour
+    p minutes
+    self.at(hour, minutes)
   end
 
   def -(adtl_minutes)
@@ -77,3 +86,7 @@ end
 p Clock.at(8).to_s + 3
 p Clock.at(9).to_s
 p Clock.at(11, 9).to_s
+
+=begin 
+LS Solution
+=end

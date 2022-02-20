@@ -47,7 +47,7 @@ Create a class which takes a month number (1-12) and a year
 
 require 'date'
 
-DESCRIPTOR_CONVERT = {first: 1, second: 2, third: 3, fourth: 4, fifth: 5, last: 6, teenth: 0}
+DESCRIPTOR_CONVERT = {first: 1, second: 2, third: 3, fourth: 4, fifth: 5, last: nil, teenth: nil}
 # Need to figure out last, teenth
 MONTHS = {
             1=>"January",
@@ -84,9 +84,8 @@ class Meetup
     elsif desired_week == "last"
       date = determine_last(day_ot_week)
     elsif desired_week == "teenth"
-      date = determine_teenth
+      date = determine_teenth(day_ot_week)
     end
-    date
   end
 
   def determine_first_through_fifth(counter_to, day_ot_week)
@@ -107,6 +106,15 @@ class Meetup
       self.date += 1
     end
     date - 7
+  end
+
+  def determine_teenth(day_ot_week)
+    loop do
+      self.date = determine_date(day_ot_week)
+      break if date.day > 12
+      self.date += 1
+    end
+    date
   end
 
   def determine_date(day_ot_week)
@@ -133,5 +141,3 @@ class Meetup
   end 
 end
 
-meetup = Meetup.new(2013, 2)
-p meetup.day('SUNday', 'last')

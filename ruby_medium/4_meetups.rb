@@ -193,4 +193,77 @@ Method: day
 - Search the range of possible days for the date that occurs on the desired day of the week
 - Return a date object for the first matching day or a value that indicates that a meetup date couldn't be 
   found.
+
+* Code
+
+class Meetup
+  SCHEDULE_START_DAY = {
+    'first' => 1,
+    'second' => 8,
+    'third' => 15,
+    'fourth' => 22,
+    'fifth' => 29,
+    'teenth' => 13,
+    'last' => nil
+  }.freeze
+
+  def initialize(year, month)
+    @year = year
+    @month = month
+    @days_in_month = Date.civil(@year, @month, -1).day
+  end
+
+  def day(weekday, schedule)
+    weekday = weekday.downcase
+    schedule = schedule.downcase
+
+    first_possible_day = first_day_to_search(schedule)
+    last_possible_day = [first_possible_day + 6, @days_in_month].min
+
+    (first_possible_day..last_possible_day).detect do |day|
+      date = Date.civil(@year, @month, day)
+      break date if day_of_week_is?(date, weekday)
+    end
+  end
+
+  private
+
+  def first_day_to_search(schedule)
+    SCHEDULE_START_DAY[schedule] || (@days_in_month - 6)
+  end
+
+  def day_of_week_is?(date, weekday) # rubocop:disable Metrics/CyclomaticComplexity
+    case weekday
+    when 'monday'    then date.monday?
+    when 'tuesday'   then date.tuesday?
+    when 'wednesday' then date.wednesday?
+    when 'thursday'  then date.thursday?
+    when 'friday'    then date.friday?
+    when 'saturday'  then date.saturday?
+    when 'sunday'    then date.sunday?
+    end
+  end
+end
+The key to solving this challenge is to factor out the most complex parts into helper methods and data 
+structures. In particular:
+
+We may need to use the number of days in the month repeatedly, so we perform that calculation just once 
+in the body of the constructor. This uses the somewhat tricky and poorly documented feature of the Date 
+constructor - if you pass a negative number for the day of month, it calculates the date relative to the 
+end of the month. So, passing a value of -1 determines the end of the month, which we can use to determine 
+the number of days in the month.
+
+We use a hash (SCHEDULE_START_DAY) and a short helper method (#first_day_to_search) to determine the first 
+possible day of the month on which a meetup can occur. The hash does the bulk of the work: if we're 
+looking for, say, the third Tuesday of the month, we use the hash to determine that the 3rd Tuesday can't 
+possibly occur before the 15th of the month. The slightly trickier part is dealing with the last week of 
+the month. In this case, we need to subtract 6 from the number of days in the month to find the first 
+day to check.
+
+We also use a helper method, #day_of_week_is?, to check whether a date falls on the indicated day of week.
+
+Our solution uses Enumerable#find to perform the search for the matching date. Normally, find returns the 
+value of the first item it finds in the collection (a range in this case). However, if you use break 
+with an argument, it returns that argument instead. That allows us to return the calculated date rather 
+than just the day of the month.
 =end

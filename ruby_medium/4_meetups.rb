@@ -23,4 +23,99 @@ month, but some meetup groups like that irregularity.
 
 The days of the week are given by the strings 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 'Saturday', and 'Sunday'. Again, the case of the strings is not important.
+
+* Problem
+Create a class which takes a month number (1-12) and a year
+  - day method which takes weekday and schedule
+  - Determine date of the meetup as "day"th of "month", "year"
+
+* Data
+- Date objects, strings, integers
+
+* Algo
+- meetup class
+  - constructor
+    - accepts year, month
+
+  - day
+   - accepts day of the week, descriptor
+   - returns a Date object 
+
+   (wday returns day of the week, 0-6 sunday is 0)
+
 =end
+
+require 'date'
+
+DESCRIPTOR_CONVERT = {first: 1, second: 2, third: 3, fourth: 4, fifth: 5, last: 6, teenth: 0}
+# Need to figure out last, teenth
+MONTHS = {
+            1=>"January",
+            2=>"February",
+            3=>"March",
+            4=>"April",
+            5=>"May",
+            6=>"June",
+            7=>"July",
+            8=>"August",
+            9=>"September",
+            10=> "October",
+            11=> "November",
+            12=> "December"
+}
+
+class Meetup
+  attr_reader :year, :month
+
+  def initialize(year, month)
+    @year = year
+    @month = month
+  end
+
+  def day(dotw, descriptor)
+    counter = 1 
+    dotw = dotw.downcase
+    # descriptor = descriptor.downcase
+    counter_to = DESCRIPTOR_CONVERT[descriptor.downcase.to_sym] 
+    date = Date.new(year, month, 1)
+    loop do
+      loop do
+        case dotw
+        when "monday"
+          break if date.monday?
+        when "tuesday"
+          break if date.tuesday?
+        when "wednesday"
+          break if date.wednesday?
+        when "thursday"
+          break if date.thursday?
+        when "friday"
+          break if date.friday?
+        when "saturday"
+          break if date.saturday?
+        when "sunday"
+          break if date.sunday?
+        end
+        date = date.next_day
+      end
+      break if counter == counter_to || counter_to == 0
+      counter += 1
+    end
+
+    if counter_to == 6
+      date = date - 7
+    elsif counter_to == 0
+      date
+    else
+      date
+    end
+
+  end
+
+  # def return_format(date)
+  #   "#{date.day}th of #{MONTHS[date.month]}, #{date.year}"
+  # end 
+end
+
+# meetup = Meetup.new(2013, 3)
+# p meetup.day('Monday', 'first')

@@ -66,56 +66,60 @@ MONTHS = {
 
 class Meetup
   attr_reader :year, :month
+  attr_accessor :date
 
   def initialize(year, month)
     @year = year
     @month = month
+    @date = Date.new(year, month, 1)
   end
 
-  def day(dotw, descriptor)
-    counter = 1 
-    dotw = dotw.downcase
-    # descriptor = descriptor.downcase
-    counter_to = DESCRIPTOR_CONVERT[descriptor.downcase.to_sym] 
-    date = Date.new(year, month, 1)
-    loop do
-      loop do
-        case dotw
-        when "monday"
-          break if date.monday?
-        when "tuesday"
-          break if date.tuesday?
-        when "wednesday"
-          break if date.wednesday?
-        when "thursday"
-          break if date.thursday?
-        when "friday"
-          break if date.friday?
-        when "saturday"
-          break if date.saturday?
-        when "sunday"
-          break if date.sunday?
-        end
-        date = date.next_day
-      end
-      break if counter == counter_to || counter_to == 0
-      counter += 1
-    end
-
-    if counter_to == 6
-      date = date - 7
-    elsif counter_to == 0
-      date
+  def day(day_ot_week, desired_week)
+    day_ot_week = day_ot_week.downcase
+    desired_week = desired_week.downcase
+    counter_to = DESCRIPTOR_CONVERT[desired_week.to_sym]
+    if (1..5).to_a.include?(counter_to)
+      date = first_through_fifth(counter_to, day_ot_week)
     else
       date
     end
-
+    date
   end
 
-  # def return_format(date)
-  #   "#{date.day}th of #{MONTHS[date.month]}, #{date.year}"
-  # end 
+  def first_through_fifth(counter_to, day_ot_week)
+    week_ot_month = 1 
+    loop do
+      self.date = determine_date(day_ot_week)
+      break if week_ot_month == counter_to || counter_to == 0
+      self.date += 1
+      week_ot_month += 1
+    end
+    date.month == @month ? date : nil
+  end
+
+  def determine_date(day_ot_week)
+    loop do
+      case day_ot_week
+      when "monday"
+        break if date.monday?
+      when "tuesday"
+        break if date.tuesday?
+      when "wednesday"
+        break if date.wednesday?
+      when "thursday"
+        break if date.thursday?
+      when "friday"
+        break if date.friday?
+      when "saturday"
+        break if date.saturday?
+      when "sunday"
+        break if date.sunday?
+      end
+      self.date = date.next_day
+    end
+    date
+  end 
 end
 
-# meetup = Meetup.new(2013, 3)
-# p meetup.day('Monday', 'first')
+meetup = Meetup.new(2013, 2)
+p meetup.day('SUNday', 'fifth')

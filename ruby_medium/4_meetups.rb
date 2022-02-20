@@ -78,23 +78,35 @@ class Meetup
     day_ot_week = day_ot_week.downcase
     desired_week = desired_week.downcase
     counter_to = DESCRIPTOR_CONVERT[desired_week.to_sym]
+
     if (1..5).to_a.include?(counter_to)
-      date = first_through_fifth(counter_to, day_ot_week)
-    else
-      date
+      date = determine_first_through_fifth(counter_to, day_ot_week)
+    elsif desired_week == "last"
+      date = determine_last(day_ot_week)
+    elsif desired_week == "teenth"
+      date = determine_teenth
     end
     date
   end
 
-  def first_through_fifth(counter_to, day_ot_week)
+  def determine_first_through_fifth(counter_to, day_ot_week)
     week_ot_month = 1 
     loop do
       self.date = determine_date(day_ot_week)
-      break if week_ot_month == counter_to || counter_to == 0
+      break if week_ot_month == counter_to
       self.date += 1
       week_ot_month += 1
     end
     date.month == @month ? date : nil
+  end
+
+  def determine_last(day_ot_week)
+    loop do
+      self.date = determine_date(day_ot_week)
+      break if date.month != @month
+      self.date += 1
+    end
+    date - 7
   end
 
   def determine_date(day_ot_week)
@@ -122,4 +134,4 @@ class Meetup
 end
 
 meetup = Meetup.new(2013, 2)
-p meetup.day('SUNday', 'fifth')
+p meetup.day('SUNday', 'last')
